@@ -1,8 +1,7 @@
 import {Router} from 'express';
 
 export default abstract class AbstractController{
-    private _router: Router = Router();
-    
+    private _router: Router = Router();    
     private _prefix: string;
 
     public get prefix(): string {
@@ -17,6 +16,6 @@ export default abstract class AbstractController{
         this.initRoutes();
     }
 
-    abstract initRoutes():void;
+    protected abstract initRoutes():void;
     
 }
