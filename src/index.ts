@@ -1,5 +1,5 @@
 import Server from "./providers/Server";
-import { PORT,NODE_ENV } from "./configuration";
+import { PORT,NODE_ENV } from "./config";
 //Importar middlewares
 import express from "express";
 import cors from "cors";

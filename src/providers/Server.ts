@@ -1,6 +1,6 @@
-//const express = require("express");
 import express, {Request, Response,NextFunction} from 'express';
 import AbstractController from '../controllers/AbstractController';
+import db from '../models'
 
 class Server{
     private app:express.Application;
@@ -13,6 +13,7 @@ class Server{
         this.env = appInit.env;
         this.loadMiddlewares(appInit.middlewares);
         this.loadRoutes(appInit.controllers);
+        this.databases();
     }
 
     private loadRoutes(controllers:AbstractController[]):void{
@@ -34,6 +35,11 @@ class Server{
         middlewares.forEach((middleware:any)=>{
             this.app.use(middleware)
         })
+    }
+
+    //Agregar la conexión a la base de datos
+    private async databases(){
+        await db.sequelize.sync();
     }
 
     public init():void{
