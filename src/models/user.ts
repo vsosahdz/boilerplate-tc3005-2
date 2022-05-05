@@ -1,52 +1,58 @@
+'use strict';
 import {Model, UUIDV4} from 'sequelize';
 
-//Atributos necesarios para ingresar un registro dentro de la tabla User
+
 interface UserAttributes {
-  idUser:string,
-  nameUser:string,
-  emailUser:string,
-  passwordUser:string
+  awsCognitoId:string;
+  name:string;
+  role:string;
+  email:string;
 }
 
-module.exports = (sequelize:any, DataTypes:any) => {
+export enum UserRoles {
+	ADMIN = 'ADMIN',
+	SUPERVISOR = 'SUPERVISOR',
+	CUSTOMER = 'CUSTOMER',
+}
+
+module.exports = (sequelize: any, DataTypes: any) => {
   class User extends Model<UserAttributes> implements UserAttributes {
-    
-    idUser!: string;
-    nameUser!: string;
-    emailUser!: string;
-    passwordUser!: string;
+    awsCognitoId!: string;
+    name!: string;
+    role!: string;
+    email!: string;
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models:any) {
+    static associate(models: any) {
       // define association here
       User.belongsToMany(models.Project,{
-        through:'ProjectAssigments'
+        through:'ProjectAssigment'
       })
     }
   }
   User.init({
-    idUser:{
-      type: DataTypes.UUID,
-      defaultValue: UUIDV4,
+    awsCognitoId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      primaryKey: true
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    role:{
+      type:DataTypes.STRING,
       allowNull:false,
-      primaryKey:true
+      defaultValue:UserRoles.CUSTOMER
     },
-    nameUser:{
-      type:DataTypes.STRING,
-      allowNull:false
-    },
-    emailUser:{
-      type:DataTypes.STRING,
-      allowNull:false,
-      unique:true
-    },
-    passwordUser:{
-      type:DataTypes.STRING,
-      allowNull:false
-    }
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true      
+    }    
   }, {
     sequelize,
     modelName: 'User',

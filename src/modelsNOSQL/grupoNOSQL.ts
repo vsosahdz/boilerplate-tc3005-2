@@ -15,10 +15,10 @@ const GrupoModel = dynamodb.define('grupo',{
 });
 
 
-dynamodb.createTables((err:any)=>{
+/*dynamodb.createTables((err:any)=>{
     if(err)
         return console.log('Error al crear la tabla',err);
     console.log('Tabla creada exitosamente');
-})
+})*/
 
 export default GrupoModel;

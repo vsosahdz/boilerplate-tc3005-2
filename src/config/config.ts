@@ -1,4 +1,4 @@
-import { DB_NAME,DB_USER,DB_PASSWORD } from './index';
+import { DB_NAME,DB_USER,DB_PASSWORD,DB_HOST} from './index';
 
 
 export default {
@@ -6,7 +6,7 @@ export default {
     username: DB_USER,
     password: DB_PASSWORD,
     database: DB_NAME,
-    host: "database-2.cpzwpik0kh3r.us-east-1.rds.amazonaws.com",
+    host: DB_HOST,
     dialect: "mysql"
   },
   "test": {
