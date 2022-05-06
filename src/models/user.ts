@@ -12,6 +12,7 @@ interface UserAttributes {
 export enum UserRoles {
 	ADMIN = 'ADMIN',
 	SUPERVISOR = 'SUPERVISOR',
+  AGENT = 'AGENT',
 	CUSTOMER = 'CUSTOMER',
 }
 

@@ -43,6 +43,31 @@ class CognitoService {
 		return await this.cognitoIdentity.signUp(params).promise();
 	}
 
+    //Método de verificación de nuevos usuarios
+	 public async verifyUser(email: string, code: string) {
+		const params = {
+			ClientId: this.clientId,
+			ConfirmationCode: code,
+			Username: email,
+			SecretHash: this.hashSecret(email) /* required */,
+		};
+		return await this.cognitoIdentity.confirmSignUp(params).promise();
+	}
+
+	//Autenticación de usuarios
+	public async signInUser(email: string, password: string) {
+		const params = {
+			AuthFlow: 'USER_PASSWORD_AUTH',
+			ClientId: this.clientId,
+			AuthParameters: {
+				USERNAME: email,
+				PASSWORD: password,
+				SECRET_HASH: this.hashSecret(email),
+			},
+		};
+		return await this.cognitoIdentity.initiateAuth(params).promise();
+	}
+
     
     //Update name or email
     //Verificar cuentas
