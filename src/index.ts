@@ -1,13 +1,17 @@
-import Server from "./providers/Server";
-import { PORT,NODE_ENV } from "./config";
-//Importar middlewares
-import express from "express";
-import cors from "cors";
-//Importa controllers
-import UserController from "./controllers/UserController";
-import AuthenticationController from "./controllers/AuthenticationController";
 
-const app=new Server({
+//import App from './providers/App';
+//App.loadServer()
+
+import Server from './providers/Server';
+import { PORT, NODE_ENV } from './config';
+import express from 'express';
+import cors from 'cors';
+import UserController from './controllers/UserController';
+import AuthenticationController from './controllers/AuthenticationController';
+import { Request } from 'express';
+
+
+const app = new Server({
     port:PORT,
     middlewares:[
         express.json(),
@@ -18,7 +22,18 @@ const app=new Server({
         UserController.getInstance(),
         AuthenticationController.getInstance()
     ],
-    env:NODE_ENV
+    env: NODE_ENV,    
 });
 
+declare global{
+    namespace Express{
+        interface Request{
+            user:string;
+            token:string;
+        }
+    }
+}
+
 app.init();
+
+

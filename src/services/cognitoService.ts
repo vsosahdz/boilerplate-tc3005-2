@@ -42,8 +42,7 @@ class CognitoService {
 
 		return await this.cognitoIdentity.signUp(params).promise();
 	}
-
-    //Método de verificación de nuevos usuarios
+	//Método de verificación de nuevos usuarios
 	 public async verifyUser(email: string, code: string) {
 		const params = {
 			ClientId: this.clientId,
@@ -68,19 +67,8 @@ class CognitoService {
 		return await this.cognitoIdentity.initiateAuth(params).promise();
 	}
 
-    
-    //Update name or email
-    //Verificar cuentas
-    //Signing in (Autenticarse)
-    //Actualizar token
-    //Cambiar password 
-    //Recuperar password
-    //Confirmacion de password
-    //Obtener informacion del usuario
-    //Obtener correo electronico 
-    //Eliminar cuenta
-    
-    //Cifrar la información
+	
+
     private hashSecret(username: string): string {
 		return crypto
 			.createHmac('SHA256', this.secretHash)
